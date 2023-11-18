@@ -1,6 +1,10 @@
 package monokage
 
-import "math/big"
+import (
+	"crypto/md5"
+	"encoding/hex"
+	"math/big"
+)
 
 func doubleHashing(hashA, hashB int64, n int, size int) (hash int64) {
 	h := new(big.Int).Mul(big.NewInt(int64(n)), big.NewInt(hashB))
@@ -12,4 +16,11 @@ func doubleHashing(hashA, hashB int64, n int, size int) (hash int64) {
 		hash += int64(size)
 	}
 	return
+}
+
+func getMD5Hash(str []byte) string {
+	hasher := md5.New()
+	hasher.Write(str)
+
+	return hex.EncodeToString(hasher.Sum(nil))
 }
